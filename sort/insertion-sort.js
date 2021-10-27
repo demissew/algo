@@ -44,27 +44,24 @@ Ref: https://en.wikipedia.org/wiki/Insertion_sort
 function insertionSort(arr) {
   const len = arr.length;
   if (len <= 1) return arr;
-  for (let i = 0; i < len - 1; i++) {
-    if (arr[i + 1] < arr[i]) {
-      arr = doInsert(arr, i);
-    }
-  }
-  return arr;
-}
-
-function doInsert(arr, currentIndex) {
-  const val = arr[currentIndex + 1];
-  for (let i = 0; i <= currentIndex; i++) {
-    if (val < arr[i]) {
-      for (j = currentIndex + 1; j >= i; j--) {
-        arr[j] = arr[j - 1];
+  for (let i = 1; i < len; i++) {
+    if (arr[i] < arr[i - 1]) {
+      let val = arr[i];
+      i_know_we_dont_need_this_label: for (let j = i; j > 0; j--) {
+        if (val <= arr[j - 1]) {
+          arr[j] = arr[j - 1];
+          arr[j - 1] = val;
+        }
+        if (val >= arr[j - 2]) {
+          break i_know_we_dont_need_this_label;
+        }
       }
-      arr[i] = val;
-      break;
     }
   }
   return arr;
 }
 
 let arr = [231, 45, 76, 43, 23, 45, 67, 87, 98, 56, 43, 332, 3223, 732, 532];
+
+console.log(arr);
 console.log(insertionSort(arr));
